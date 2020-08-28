@@ -1,0 +1,7 @@
+#服务名称
+spring:
+  application:
+    name: service-edu
+  #环境设置
+  profiles:
+    active: dev
