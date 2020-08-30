@@ -1,0 +1,18 @@
+#服务端口
+server:
+  port: 8002
+#服务名
+spring:
+  application:
+    name: service-oss
+  #环境设置
+  profiles:
+    active: dev
+#阿里云oss配置
+aliyun:
+  bucketName: guliedu--online
+  accessKeyId: LTAI4G3Du2BYnnDMSA2Yw23T
+  accessKeySecret: 2T6QKmtcLJIeGpl2ooLO4H3LIfYrdj
+  #OSS对应的区域
+  endpoint: oss-cn-beijing.aliyuncs.com
+

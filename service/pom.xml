@@ -12,6 +12,10 @@
     <modules>
         <module>service_edu</module>
         <module>service_vod</module>
+<<<<<<< HEAD
+=======
+        <module>service_oss</module>
+>>>>>>> dev
     </modules>
     <artifactId>service</artifactId>
 
