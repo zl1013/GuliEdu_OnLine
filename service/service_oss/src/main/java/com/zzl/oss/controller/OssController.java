@@ -28,7 +28,7 @@ public class OssController {
     private OssService ossService;
 
     //上传头像的方法
-    @PostMapping
+    @PostMapping()
     @ApiOperation(value = "上传文件")
     public Result uploadOssFile(MultipartFile file){
         //获取上传文件 MultipartFile

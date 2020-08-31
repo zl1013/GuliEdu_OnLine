@@ -28,10 +28,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/eduservice/teacher")
 @Api(value = "讲师管理",tags = {"讲师管理"})
-<<<<<<< HEAD
-=======
 @CrossOrigin//解决跨域
->>>>>>> dev
 public class EduTeacherController {
 
     @Autowired
@@ -96,14 +93,10 @@ public class EduTeacherController {
                                        @ApiParam(name = "limit",value = "每页记录数",required = true)
                                            @PathVariable Long limit
                                         ,@RequestBody(required = false) TeacherQuery teacherQuery  ){//每页记录数
-<<<<<<< HEAD
-
-=======
         System.out.println("分页查询");
         System.out.println(current);
         System.out.println(limit);
         System.out.println(teacherQuery);
->>>>>>> dev
         //创建page对象
         Page<EduTeacher> page = new Page<>(current,limit);
 
@@ -128,11 +121,8 @@ public class EduTeacherController {
             queryWrapper.le("gmt_create",end);
         }
 
-<<<<<<< HEAD
-=======
         //排序
         queryWrapper.orderByDesc("gmt_create");
->>>>>>> dev
 
         //调用方法的时候，底层把所有分页数据封装到page对象里面
         eduTeacherService.page(page,queryWrapper);
@@ -160,23 +150,15 @@ public class EduTeacherController {
     @GetMapping("findTeacherByID/{id}")
     public Result findTeacherByID(@PathVariable String id){
         EduTeacher teacher = eduTeacherService.getById(id);
-<<<<<<< HEAD
-=======
         System.out.println(teacher);
->>>>>>> dev
         return Result.success().data("teacher",teacher).message("查询成功");
     }
     //根据ID修改讲师信息
     @ApiOperation(value = "根据ID修改讲师信息")
     @PostMapping("updateTeacherByID")
-<<<<<<< HEAD
-    public Result updateTeacherByID(@RequestBody EduTeacher eduTeacher){
-        boolean update = eduTeacherService.updateById(eduTeacher);
-=======
     public Result updateTeacherByID(@RequestBody EduTeacher teacher){
         System.out.println("update");
         boolean update = eduTeacherService.updateById(teacher);
->>>>>>> dev
         if (update){
             return Result.success().message("修改成功");
         }else {
