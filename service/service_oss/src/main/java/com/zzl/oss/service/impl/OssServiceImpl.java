@@ -64,7 +64,6 @@ public class OssServiceImpl implements OssService {
 
             //拼接文件路径
             String url = "https://" + bucketName + "." + endpoint + "/avatar/" + datePath + "/" + filename;
-            System.out.println(url);
             //返回文件路径
             return url ;
         } catch (IOException e) {
