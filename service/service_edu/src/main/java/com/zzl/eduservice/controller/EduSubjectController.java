@@ -1,17 +1,19 @@
 package com.zzl.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzl.commonutils.Result;
+import com.zzl.eduservice.entity.subject.SubjectOne;
 import com.zzl.eduservice.service.EduSubjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -35,10 +37,22 @@ public class EduSubjectController {
     @ApiOperation(value = "通过上传文件新增课程分类")
     public Result addSubject(MultipartFile file){
         //上传过来的文件
-        subjectService.addSubject(file,subjectService);
-
-        return Result.success();
+        try {
+            subjectService.addSubject(file,subjectService);
+            return Result.success().message("课程分类添加成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error().message("导入失败");
+        }
     }
 
+    //课程分类列表（树形结构）
+    @GetMapping("getAllSubject")
+    @ApiOperation(value = "课程分类列表")
+    public Result getAllSubject(){
+        List<SubjectOne> list = subjectService.getAllSubject();
+
+        return Result.success().data("list",list);
+    }
 }
 

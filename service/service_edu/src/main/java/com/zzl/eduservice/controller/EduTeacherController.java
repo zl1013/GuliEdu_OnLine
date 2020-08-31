@@ -150,7 +150,6 @@ public class EduTeacherController {
     @GetMapping("findTeacherByID/{id}")
     public Result findTeacherByID(@PathVariable String id){
         EduTeacher teacher = eduTeacherService.getById(id);
-        System.out.println(teacher);
         return Result.success().data("teacher",teacher).message("查询成功");
     }
     //根据ID修改讲师信息

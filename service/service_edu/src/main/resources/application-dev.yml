@@ -12,11 +12,12 @@ spring:
   #设置json的全局返回时间格式
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-#mybatis日志
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     time-zone: GMT+8
+#mybatis日志
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    time-zone: GMT+8
 #mybatis日志
 #mybatis-plus:
 #  configuration:

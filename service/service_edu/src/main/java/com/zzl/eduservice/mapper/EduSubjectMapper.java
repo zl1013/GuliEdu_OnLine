@@ -1,7 +1,11 @@
 package com.zzl.eduservice.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzl.eduservice.entity.EduSubject;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zzl.eduservice.entity.subject.SubjectOne;
+
+import java.util.List;
 
 /**
  * <p>
