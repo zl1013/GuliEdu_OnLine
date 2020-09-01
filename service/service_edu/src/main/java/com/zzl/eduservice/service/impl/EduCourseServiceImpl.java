@@ -4,6 +4,7 @@ import com.zzl.eduservice.entity.EduCourse;
 import com.zzl.eduservice.entity.EduCourseDescription;
 import com.zzl.eduservice.entity.chapter.ChapterVo;
 import com.zzl.eduservice.entity.vo.CourseInfoVo;
+import com.zzl.eduservice.entity.vo.CoursePublishVo;
 import com.zzl.eduservice.mapper.EduCourseMapper;
 import com.zzl.eduservice.service.EduChapterService;
 import com.zzl.eduservice.service.EduCourseDescriptionService;
@@ -77,6 +78,19 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         EduCourseDescription courseDescription = new EduCourseDescription();
         courseDescription.setDescription(courseInfoVo.getDescription());
         descriptionService.updateById(courseDescription);
+    }
+
+    @Override
+    public CoursePublishVo getPublishCourseInfo(String courseId) {
+        return baseMapper.getPublishCourseInfo(courseId);
+    }
+
+    @Override
+    public void publish(String courseId) {
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(courseId);
+        eduCourse.setStatus("Normal");
+        baseMapper.updateById(eduCourse);
     }
 
 }

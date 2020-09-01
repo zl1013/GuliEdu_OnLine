@@ -16,5 +16,14 @@ import java.util.List;
  */
 public interface EduChapterService extends IService<EduChapter> {
 
+    //根据课程id查询所有章节
     List<ChapterVo> getChapterVideoByCourseId(String courseId);
+    //添加章节
+    void addChapter(EduChapter chapter);
+    //根据id查询章节
+    EduChapter getChapterById(String id);
+    //修改章节
+    void updateChapter(EduChapter chapter);
+    //根据id删除章节
+    boolean deleteChapter(String chapterId);
 }

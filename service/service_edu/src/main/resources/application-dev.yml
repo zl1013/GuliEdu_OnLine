@@ -25,3 +25,5 @@ spring:
 #设置日志级别
 #logging:
 #  level: debug
+mybatis-plus:
+  mapper-locations: classpath:com/zzl/eduservice/mapper/xml/*.xml

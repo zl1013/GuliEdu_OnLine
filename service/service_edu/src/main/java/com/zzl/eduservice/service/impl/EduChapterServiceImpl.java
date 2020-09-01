@@ -58,4 +58,33 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         }
         return chapterVos;
     }
+
+    @Override
+    public void addChapter(EduChapter eduChapter) {
+        baseMapper.insert(eduChapter);
+    }
+
+    @Override
+    public EduChapter getChapterById(String chapterId) {
+        return baseMapper.selectById(chapterId);
+    }
+
+    @Override
+    public void updateChapter(EduChapter chapter) {
+        baseMapper.updateById(chapter);
+    }
+
+    @Override
+    public boolean deleteChapter(String chapterId) {
+        //根据章节id查询小节表，如果存在数据，则不进行删除
+        QueryWrapper<EduVideo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("chapter_id",chapterId);
+        int count = videoService.count(queryWrapper);
+        if (count > 0){
+            return false;
+        }else {
+            int result = baseMapper.deleteById(chapterId);
+            return result > 0;
+        }
+    }
 }

@@ -2,8 +2,8 @@ package com.zzl.eduservice.controller;
 
 
 import com.zzl.commonutils.Result;
-import com.zzl.eduservice.entity.EduCourse;
 import com.zzl.eduservice.entity.vo.CourseInfoVo;
+import com.zzl.eduservice.entity.vo.CoursePublishVo;
 import com.zzl.eduservice.service.EduCourseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -62,6 +62,23 @@ public class EduCourseController {
             return Result.error().message("修改课程信息失败");
         }
 
+    }
+
+    //根据课程id查询课程确认信息
+    @GetMapping("getPublishCourseInfo/{courseId}")
+    @ApiOperation(value = "根据courseId查询最终确认页数据")
+    public Result getPublishCourseInfo(@PathVariable String courseId){
+        CoursePublishVo coursePublishVo = courseService.getPublishCourseInfo(courseId);
+        return Result.success().data("publishCourse",coursePublishVo);
+    }
+
+    //课程最终发布
+    //修改数据库表中的 status 字段，由 Draft 修改为 Normal
+    @GetMapping("publish/{courseId}")
+    @ApiOperation(value = "课程发布")
+    public Result publish(@PathVariable String courseId){
+        courseService.publish(courseId);
+        return Result.success().message("课程发布成功");
     }
 
 
