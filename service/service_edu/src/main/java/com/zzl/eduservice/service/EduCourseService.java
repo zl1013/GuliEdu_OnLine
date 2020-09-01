@@ -15,5 +15,9 @@ import com.zzl.eduservice.entity.vo.CourseInfoVo;
 public interface EduCourseService extends IService<EduCourse> {
 
     //添加课程基本信息
-    void addCourseInfo(CourseInfoVo courseInfoVo);
+    String addCourseInfo(CourseInfoVo courseInfoVo);
+    //根据id查询课程信息
+    CourseInfoVo getCourseInfo(String courseId);
+    //修改课程信息
+    void updateCourseInfo(CourseInfoVo courseInfoVo);
 }

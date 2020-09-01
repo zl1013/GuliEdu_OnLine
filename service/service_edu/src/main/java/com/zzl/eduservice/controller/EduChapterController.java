@@ -1,10 +1,15 @@
 package com.zzl.eduservice.controller;
 
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.zzl.commonutils.Result;
+import com.zzl.eduservice.entity.chapter.ChapterVo;
+import com.zzl.eduservice.service.EduChapterService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 /**
  * <p>
@@ -17,7 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/eduservice/chapter")
 @CrossOrigin
+@Api(value = "章节管理",tags = "章节管理")
 public class EduChapterController {
+
+    @Autowired
+    private EduChapterService chapterService;
+
+    @GetMapping("getChapterVideo/{courseId}")
+    @ApiOperation(value = "查询所有的章节以及小节")
+    public Result getChapterVideo(@PathVariable String courseId){
+        List<ChapterVo> chapterVos = chapterService.getChapterVideoByCourseId(courseId);
+        return Result.success().data("list",chapterVos);
+    }
 
 }
 

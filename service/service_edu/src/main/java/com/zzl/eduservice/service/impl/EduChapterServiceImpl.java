@@ -1,10 +1,21 @@
 package com.zzl.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzl.eduservice.entity.EduChapter;
+import com.zzl.eduservice.entity.EduVideo;
+import com.zzl.eduservice.entity.chapter.ChapterVo;
+import com.zzl.eduservice.entity.chapter.VideoVo;
 import com.zzl.eduservice.mapper.EduChapterMapper;
 import com.zzl.eduservice.service.EduChapterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zzl.eduservice.service.EduVideoService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -15,6 +26,36 @@ import org.springframework.stereotype.Service;
  * @since 2020-08-31
  */
 @Service
+@Transactional
 public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChapter> implements EduChapterService {
 
+    @Autowired
+    private EduVideoService videoService;
+
+    @Override
+    public List<ChapterVo> getChapterVideoByCourseId(String courseId) {
+
+        List<ChapterVo> chapterVos = new ArrayList<>();
+        //1.根据courseId查询所有的 chapter
+        QueryWrapper<EduChapter> queryWrapperchapter = new QueryWrapper<>();
+        queryWrapperchapter.eq("course_id",courseId);
+        List<EduChapter> eduChapters = baseMapper.selectList(queryWrapperchapter);
+        for (EduChapter eduChapter : eduChapters) {
+            ChapterVo chapterVo = new ChapterVo();
+            BeanUtils.copyProperties(eduChapter,chapterVo);
+            //2. 根据 chapter_id 查询所有的 video
+            QueryWrapper<EduVideo> queryWrappervideo = new QueryWrapper<>();
+            queryWrappervideo.eq("chapter_id",eduChapter.getId());
+            List<VideoVo> videoVos = new ArrayList<>();
+            List<EduVideo> eduVideos = videoService.list(queryWrappervideo);
+            for (EduVideo eduVideo : eduVideos) {
+                VideoVo videoVo = new VideoVo();
+                BeanUtils.copyProperties(eduVideo,videoVo);
+                videoVos.add(videoVo);
+            }
+            chapterVo.setChildren(videoVos);
+            chapterVos.add(chapterVo);
+        }
+        return chapterVos;
+    }
 }

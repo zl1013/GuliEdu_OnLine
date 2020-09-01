@@ -11,7 +11,7 @@ import java.util.List;
  * Version 1.0
  */
 //一级分类
-    @Data
+@Data
 public class SubjectOne {
 
     private String id;
