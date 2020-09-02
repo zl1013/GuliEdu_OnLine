@@ -1,5 +1,6 @@
 package com.zzl.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzl.eduservice.entity.EduVideo;
 import com.zzl.eduservice.mapper.EduVideoMapper;
 import com.zzl.eduservice.service.EduVideoService;
@@ -39,6 +40,14 @@ public class EduVideoServiceImpl extends ServiceImpl<EduVideoMapper, EduVideo> i
     @Override
     public EduVideo getVideo(String videoId) {
         return baseMapper.selectById(videoId);
+    }
+
+    @Override
+    //TODO删除小节同时删除视频
+    public void removeByCourseId(String courseId) {
+        QueryWrapper<EduVideo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("course_id",courseId);
+        baseMapper.delete(queryWrapper);
     }
 
 }

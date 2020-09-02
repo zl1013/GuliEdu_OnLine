@@ -1,21 +1,23 @@
 package com.zzl.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzl.eduservice.entity.EduCourse;
 import com.zzl.eduservice.entity.EduCourseDescription;
 import com.zzl.eduservice.entity.chapter.ChapterVo;
 import com.zzl.eduservice.entity.vo.CourseInfoVo;
 import com.zzl.eduservice.entity.vo.CoursePublishVo;
+import com.zzl.eduservice.entity.vo.CourseQuery;
 import com.zzl.eduservice.mapper.EduCourseMapper;
-import com.zzl.eduservice.service.EduChapterService;
-import com.zzl.eduservice.service.EduCourseDescriptionService;
-import com.zzl.eduservice.service.EduCourseService;
+import com.zzl.eduservice.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -31,6 +33,15 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     private EduCourseDescriptionService descriptionService;
+
+    @Autowired
+    private EduVideoService videoService;
+
+    @Autowired
+    private EduChapterService chapterService;
+
+    @Autowired
+    private EduSubjectService subjectService;
 
     @Override
     public String addCourseInfo(CourseInfoVo courseInfoVo) {
@@ -64,8 +75,17 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         BeanUtils.copyProperties(course,courseInfoVo);
         //查询课程描述表
         EduCourseDescription courseDescription = descriptionService.getById(courseInfoVo.getId());
-        courseInfoVo.setDescription(courseDescription.getDescription());
-        return courseInfoVo;
+        String description = null;
+        try {
+            description = courseDescription.getDescription();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            courseInfoVo.setDescription(description);
+            return courseInfoVo;
+        }
+
+
     }
 
     @Override
@@ -92,5 +112,44 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         eduCourse.setStatus("Normal");
         baseMapper.updateById(eduCourse);
     }
+
+    @Override
+    public boolean deleteCourse(String courseId) {
+            //第一种方式
+//        try{
+//            Map<String,Object > map = new HashMap<>();
+//            map.put("course_id",courseId);
+//            //1.删除小节
+//            videoService.removeByMap(map);
+//
+//            //2.删除章节
+//            chapterService.removeByMap(map);
+//            //3.删除描述
+//            descriptionService.removeByMap(map);
+//            //4.删除课程
+//            baseMapper.deleteByMap(map);
+//            return true;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return false
+//        }
+
+        //第二种方式
+        try{
+            //1.删除小节
+            videoService.removeByCourseId(courseId);
+            //2.删除章节
+            chapterService.removeByCourseId(courseId);
+            //3.删除描述
+            descriptionService.removeByCourseId(courseId);
+            //4.删除课程
+            baseMapper.deleteById(courseId);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 }

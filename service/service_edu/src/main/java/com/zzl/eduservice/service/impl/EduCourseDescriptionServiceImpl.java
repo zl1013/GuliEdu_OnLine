@@ -1,5 +1,6 @@
 package com.zzl.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzl.eduservice.entity.EduCourseDescription;
 import com.zzl.eduservice.mapper.EduCourseDescriptionMapper;
 import com.zzl.eduservice.service.EduCourseDescriptionService;
@@ -19,4 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EduCourseDescriptionServiceImpl extends ServiceImpl<EduCourseDescriptionMapper, EduCourseDescription> implements EduCourseDescriptionService {
 
+    @Override
+    public void removeByCourseId(String courseId) {
+        baseMapper.deleteById(courseId);
+    }
 }

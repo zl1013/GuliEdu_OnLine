@@ -1,14 +1,23 @@
 package com.zzl.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zzl.commonutils.Result;
+import com.zzl.eduservice.entity.EduCourse;
 import com.zzl.eduservice.entity.vo.CourseInfoVo;
 import com.zzl.eduservice.entity.vo.CoursePublishVo;
+import com.zzl.eduservice.entity.vo.CourseQuery;
 import com.zzl.eduservice.service.EduCourseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -79,6 +88,55 @@ public class EduCourseController {
     public Result publish(@PathVariable String courseId){
         courseService.publish(courseId);
         return Result.success().message("课程发布成功");
+    }
+
+    //课程列表、带条件查询和分页
+    @ApiOperation(value = "条件查询带分页的方法")
+    @PostMapping("getCourseList/{current}/{limit}")
+    public Result getCourseList(@ApiParam(name = "current",value = "当前页码",required = true)
+                                @PathVariable Long current,   //当前页
+                                @ApiParam(name = "limit",value = "每页记录数",required = true)
+                                @PathVariable Long limit,     //每页大小
+                                @RequestBody CourseQuery courseQuery){
+        String title = courseQuery.getTitle();
+        String  status = courseQuery.getStatus();
+        //查询条件
+        QueryWrapper<EduCourse> courseQueryWrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(title)){
+            courseQueryWrapper.like("title",title);
+        }
+        if (!StringUtils.isEmpty(status)){
+            if (status.equals("0")){
+            courseQueryWrapper.eq("status","Draft");
+            }else if (status.equals("1")){
+                courseQueryWrapper.eq("status","Normal");
+            }
+        }
+//
+
+        //分页
+        Page<EduCourse> page = new Page<EduCourse>(current,limit);
+
+        //排序
+        courseQueryWrapper.orderByDesc("gmt_create");
+        //查询
+        courseService.page(page, courseQueryWrapper);
+        long total = page.getTotal();//总数
+        List<EduCourse> records = page.getRecords();//当前页数据
+        System.out.println(records);
+        return Result.success().data("total",total).data("courses",records);
+    }
+    //根据id删除课程
+    @DeleteMapping("deleteCourse/{courseId}")
+    @ApiOperation("根据课程id删除课程及其相关信息")
+    public Result deleteCourse(@PathVariable String courseId){
+        System.out.println(courseId);
+        boolean deleteCourse = courseService.deleteCourse(courseId);
+        if (deleteCourse){
+            return  Result.success().message("课程删除成功");
+        }else{
+            return Result.error().message("删除失败，请重试！");
+        }
     }
 
 

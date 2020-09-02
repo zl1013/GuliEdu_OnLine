@@ -1,9 +1,13 @@
 package com.zzl.eduservice.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzl.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zzl.eduservice.entity.vo.CourseInfoVo;
 import com.zzl.eduservice.entity.vo.CoursePublishVo;
+import com.zzl.eduservice.entity.vo.CourseQuery;
+
+import java.util.List;
 
 /**
  * <p>
@@ -25,4 +29,7 @@ public interface EduCourseService extends IService<EduCourse> {
     CoursePublishVo getPublishCourseInfo(String courseId);
     //课程发布
     void publish(String courseId);
+
+    //根据课程id删除课程
+    boolean deleteCourse(String courseId);
 }
