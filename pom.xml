@@ -13,11 +13,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.zzl</groupId>
-    <artifactId>guli_parent</artifactId>
+    <artifactId>langju_online_parent</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>guli_parent</name>
-    <description>GuliEdu OnLine</description>
+    <name>langju_online_parent</name>
+    <description>LangJuEdu OnLine</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -145,11 +145,6 @@
                 <groupId>com.aliyun</groupId>
                 <artifactId>aliyun-java-sdk-core</artifactId>
                 <version>${aliyun-java-sdk-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.aliyun.oss</groupId>
-                <artifactId>aliyun-sdk-oss</artifactId>
-                <version>${aliyun-sdk-oss.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.aliyun</groupId>
