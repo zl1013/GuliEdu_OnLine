@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/guli_edu?useUnicode=ture&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/langju_online?useUnicode=ture&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     username: root
     password: root
   #解决数据库返回时间转换成json格式问题

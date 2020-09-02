@@ -10,9 +10,9 @@ spring:
     active: dev
 #阿里云oss配置
 aliyun:
-  bucketName: guliedu--online
-  accessKeyId: LTAI4G3Du2BYnnDMSA2Yw23T
-  accessKeySecret: 2T6QKmtcLJIeGpl2ooLO4H3LIfYrdj
+  bucketName: langju-online
+  accessKeyId: LTAI4GHF8oQB5NVXjcQuVWvn
+  accessKeySecret: gaVOfhtbqo3KgC4HRD3SgLRZaVtZWi
   #OSS对应的区域
   endpoint: oss-cn-beijing.aliyuncs.com
 
