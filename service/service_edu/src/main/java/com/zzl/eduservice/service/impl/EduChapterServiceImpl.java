@@ -39,6 +39,7 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         //1.根据courseId查询所有的 chapter
         QueryWrapper<EduChapter> queryWrapperchapter = new QueryWrapper<>();
         queryWrapperchapter.eq("course_id",courseId);
+        queryWrapperchapter.orderByAsc("sort");
         List<EduChapter> eduChapters = baseMapper.selectList(queryWrapperchapter);
         for (EduChapter eduChapter : eduChapters) {
             ChapterVo chapterVo = new ChapterVo();
@@ -46,6 +47,7 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
             //2. 根据 chapter_id 查询所有的 video
             QueryWrapper<EduVideo> queryWrappervideo = new QueryWrapper<>();
             queryWrappervideo.eq("chapter_id",eduChapter.getId());
+            queryWrappervideo.orderByAsc("sort");
             List<VideoVo> videoVos = new ArrayList<>();
             List<EduVideo> eduVideos = videoService.list(queryWrappervideo);
             for (EduVideo eduVideo : eduVideos) {

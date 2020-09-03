@@ -2,11 +2,13 @@ package com.zzl.eduservice.controller;
 
 
 import com.zzl.commonutils.Result;
+import com.zzl.eduservice.client.VodClient;
 import com.zzl.eduservice.entity.EduVideo;
 import com.zzl.eduservice.service.EduVideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +26,9 @@ import java.util.List;
 @CrossOrigin
 @Api(value = "小节管理",tags = "小节管理")
 public class EduVideoController {
+
+    @Autowired
+    private VodClient vodClient;
 
     @Autowired
     private EduVideoService videoService;
@@ -45,10 +50,20 @@ public class EduVideoController {
         return Result.success().message("修改成功");
     }
     //删除小节
-    //TODO后面这个方法需要完善：删除小节的时候，同时把里面的视频删除
+    //删除小节的时候，同时把里面的视频删除
     @DeleteMapping("/deleteVideo/{videoId}")
     @ApiOperation(value = "删除小节")
-    public Result deleteVideo(@PathVariable String videoId){
+    public Result deleteVideo(@PathVariable String videoId) throws Exception {
+
+        //根据小节id获取oss中视频id
+        EduVideo eduVideo = videoService.getById(videoId);
+        String videoSourceId = eduVideo.getVideoSourceId();
+        if (!StringUtils.isEmpty(videoSourceId)){
+            Result result = vodClient.deleteVideo(videoSourceId);
+            if (result.getCode() == 20001){
+                throw new Exception("删除视频失败，，熔断器。。。。。");
+            }
+        }
         videoService.deleteVideo(videoId);
         return Result.success().message("删除成功");
     }
