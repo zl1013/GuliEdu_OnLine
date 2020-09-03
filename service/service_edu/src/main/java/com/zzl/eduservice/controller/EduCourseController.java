@@ -130,8 +130,8 @@ public class EduCourseController {
     @DeleteMapping("deleteCourse/{courseId}")
     @ApiOperation("根据课程id删除课程及其相关信息")
     public Result deleteCourse(@PathVariable String courseId){
-        System.out.println(courseId);
         boolean deleteCourse = courseService.deleteCourse(courseId);
+
         if (deleteCourse){
             return  Result.success().message("课程删除成功");
         }else{

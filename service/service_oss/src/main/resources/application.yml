@@ -8,6 +8,12 @@ spring:
   #环境设置
   profiles:
     active: dev
+  servlet:
+    multipart:
+      #最大上传单个文件大小：默认1M
+      max-file-size: 1024MB
+      #最大总上传数据大小：默认1M
+      max-request-size: 1024MB
 #阿里云oss配置
 aliyun:
   bucketName: langju-online
