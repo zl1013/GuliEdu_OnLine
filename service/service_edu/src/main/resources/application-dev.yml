@@ -30,6 +30,7 @@ spring:
 #设置日志级别
 #logging:
 #  level: debug
+# 配置mapper xml文件的路径
 mybatis-plus:
   mapper-locations: classpath:com/zzl/eduservice/mapper/xml/*.xml
 #服务调用者配置文件中配置熔断，开启熔断机制
