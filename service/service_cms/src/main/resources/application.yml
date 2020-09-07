@@ -15,6 +15,19 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  # redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 1800000
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        # 最大阻塞等待时间(负数表示没有限制)
+        max-idle: 6
+        min-idle: 0
 # 配置mapper xml文件的路径
 mybatis-plus:
   mapper-locations: classpath:com/zzl/educms/mapper/xml/*.xml

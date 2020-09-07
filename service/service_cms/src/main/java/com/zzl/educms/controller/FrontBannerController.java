@@ -35,10 +35,7 @@ public class FrontBannerController {
     @GetMapping("banner")
     @ApiOperation(value = "查询banner")
     public Result banner(){
-        QueryWrapper<CrmBanner> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByAsc("id");
-        queryWrapper.last("limit 2");
-        List<CrmBanner> banners = bannerService.list(queryWrapper);
+        List<CrmBanner> banners = bannerService.banner();
         return Result.success().data("banners",banners);
     }
 

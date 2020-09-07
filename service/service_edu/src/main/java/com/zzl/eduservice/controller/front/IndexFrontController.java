@@ -9,6 +9,7 @@ import com.zzl.eduservice.service.EduTeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class IndexFrontController {
 
     @GetMapping("index")
     @ApiOperation(value = "首页热门讲师/课程数据")
+    @Cacheable(key = "'index'",value = "courseAndTeacher")
     public Result index(){
         //查询讲师
         QueryWrapper<EduTeacher> queryWrapperTeacher = new QueryWrapper<>();

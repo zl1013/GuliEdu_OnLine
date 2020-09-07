@@ -21,7 +21,22 @@ public class GlobalExceptionHandler {
     @ResponseBody//返回数据
     public Result error(Exception e){
         e.printStackTrace();
-        log.error(e.getMessage());
         return Result.error().message("服务器出错了");
+    }
+
+    //特定异常
+    @ExceptionHandler(ArithmeticException.class)
+    @ResponseBody //为了返回数据
+    public Result error(ArithmeticException e) {
+        e.printStackTrace();
+        return Result.error().message("执行了ArithmeticException异常处理..");
+    }
+
+    //自定义异常
+    @ExceptionHandler(LangJuException.class)
+    @ResponseBody //为了返回数据
+    public Result error(LangJuException e) {
+        e.printStackTrace();
+        return Result.error().code(e.getCode()).message(e.getMsg());
     }
 }
