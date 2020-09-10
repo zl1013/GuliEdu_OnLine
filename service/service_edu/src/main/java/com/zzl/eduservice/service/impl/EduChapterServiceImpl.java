@@ -51,6 +51,7 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
             List<VideoVo> videoVos = new ArrayList<>();
             List<EduVideo> eduVideos = videoService.list(queryWrappervideo);
             for (EduVideo eduVideo : eduVideos) {
+
                 VideoVo videoVo = new VideoVo();
                 BeanUtils.copyProperties(eduVideo,videoVo);
                 videoVos.add(videoVo);

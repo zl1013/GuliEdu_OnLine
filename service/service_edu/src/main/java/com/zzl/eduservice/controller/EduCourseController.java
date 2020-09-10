@@ -2,7 +2,6 @@ package com.zzl.eduservice.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zzl.commonutils.Result;
 import com.zzl.eduservice.entity.EduCourse;

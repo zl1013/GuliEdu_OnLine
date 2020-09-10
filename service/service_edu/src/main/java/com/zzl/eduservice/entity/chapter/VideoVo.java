@@ -15,4 +15,6 @@ public class VideoVo {
     private String id;
     @ApiModelProperty(value = "节点名称")
     private String title;
+    @ApiModelProperty(value = "云端视频资源id")
+    private String videoSourceId;
 }

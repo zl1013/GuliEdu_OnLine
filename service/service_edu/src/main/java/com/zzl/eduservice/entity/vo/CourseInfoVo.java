@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
  */
 @Data
 @ApiModel(value = "课程基本信息", description = "编辑课程基本信息的表单对象")
-public class CourseInfoVo {
+public class CourseInfoVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

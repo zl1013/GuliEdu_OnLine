@@ -1,13 +1,17 @@
 package com.zzl.eduservice.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zzl.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zzl.eduservice.entity.fronfvo.CourseWebVo;
+import com.zzl.eduservice.entity.fronfvo.FrontCourseInfoVo;
 import com.zzl.eduservice.entity.vo.CourseInfoVo;
 import com.zzl.eduservice.entity.vo.CoursePublishVo;
 import com.zzl.eduservice.entity.vo.CourseQuery;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -32,4 +36,9 @@ public interface EduCourseService extends IService<EduCourse> {
 
     //根据课程id删除课程
     boolean deleteCourse(String courseId);
+
+    //前端条件查询带分页
+    Map<String, Object> getCourseFrontList(Page<EduCourse> coursePage, FrontCourseInfoVo courseInfoVo);
+
+    CourseWebVo getBaseCourseInfo(String courseId);
 }

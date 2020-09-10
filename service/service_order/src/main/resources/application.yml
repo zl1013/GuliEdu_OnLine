@@ -1,0 +1,43 @@
+#服务端口
+server:
+  port: 8007
+
+  #mysql数据库连接
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/langju_online?useUnicode=ture&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: root
+  #解决数据库返回时间转换成json格式问题
+  #设置json的全局返回时间格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  #nacos配置
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: service-order
+#mybatis日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#设置日志级别
+#logging:
+#  level: debug
+# 配置mapper xml文件的路径
+  mapper-locations: classpath:com/zzl/order/mapper/xml/*.xml
+#服务调用者配置文件中配置熔断，开启熔断机制
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000

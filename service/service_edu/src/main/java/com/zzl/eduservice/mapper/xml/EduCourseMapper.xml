@@ -25,4 +25,25 @@
             LEFT OUTER JOIN edu_subject es2 on ec.subject_id = es2.id
             WHERE ec.id = #{courseId}
     </select>
+    <select id="getBaseCourseInfo" resultType="com.zzl.eduservice.entity.fronfvo.CourseWebVo">
+        select ec.id,ec.title,ec.price,ec.lesson_num AS lessonNum,ec.cover,
+                    ec.buy_count AS buyCount,
+                    ec.view_count AS viewCount,
+                    ecd.description AS description,
+                    et.id AS teacherId,
+                    et.`name` AS teacherName,
+                    et.intro AS intro,
+                    et.avatar AS avatar,
+                    es1.id AS subjectLevelOneId,
+                    es1.title AS subjectLevelOne,
+                    es2.id AS subjectLevelTwoId,
+                    es2.title AS subjectLevelTwo
+
+        from edu_course ec
+                    LEFT OUTER JOIN edu_course_description ecd ON ec.id = ecd.id
+                    LEFT OUTER JOIN edu_teacher et on ec.teacher_id = et.id
+                    LEFT OUTER JOIN edu_subject es1 on ec.subject_parent_id = es1.id
+                    LEFT OUTER JOIN edu_subject es2 on ec.subject_id = es2.id
+        WHERE ec.id = #{courseId}
+    </select>
 </mapper>
