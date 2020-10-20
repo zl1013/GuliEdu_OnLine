@@ -17,8 +17,8 @@ spring:
 #阿里云oss配置
 aliyun:
   bucketName: langju-online
-  accessKeyId: LTAI4GHF8oQB5NVXjcQuVWvn
-  accessKeySecret: gaVOfhtbqo3KgC4HRD3SgLRZaVtZWi
+  accessKeyId: 
+  accessKeySecret: 
   #OSS对应的区域
   endpoint: oss-cn-beijing.aliyuncs.com
 
